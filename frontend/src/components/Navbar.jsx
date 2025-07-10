@@ -19,7 +19,6 @@ function Navbar(){
           <XIcon className="md:hidden absolute top-6 right-6 w-6 h-6 cursor-pointer" onClick={()=> setIsOpen(!isOpen)}/>
           <Link onClick={()=>{scrollTo(0, 0); setIsOpen(false)}} to='/'>Home</Link>
           <Link onClick={()=>{scrollTo(0, 0); setIsOpen(false)}} to='/movies'>Movies</Link>
-          <Link onClick={()=>{scrollTo(0, 0); setIsOpen(false)}} to='/'>Releases</Link>
           <Link onClick={()=>{scrollTo(0, 0); setIsOpen(false)}} to='/my-watchlist'>Watch List</Link>
           <Link onClick={()=>{scrollTo(0, 0); setIsOpen(false)}} to='/favorite'>Favorites</Link>
         </div>

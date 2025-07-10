@@ -35,6 +35,13 @@ const superHeroCast = [
     {"name" : "Gamma 1", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/4/40/Dlc10_Gamma1.png"},
     {"name" : "Gamma 2", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/9/94/Dlc09_Gamma2.png"},
     {"name" : "Cell Max", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/8/88/Dlc11_CellMax.png"},
+    {"name" : "Krllin", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/1/18/06_Krillin.png"},
+    {"name" : "Android 18", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/c/ce/44_Android18.png"},
+    {"name" : "Goku", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/c/cb/91_GokuDBS.png"},
+    {"name" : "Vegeta", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/0/0b/95_VegetaDBS.png"},
+    {"name" : "Broly", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/4/49/157_BrolyDBS.png"},
+    {"name" : "Whis", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/2/27/100_Whis.png"},
+    {"name" : "Beerus", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/c/c9/99_Beerus.png"},
 ]
 
 const battleOfGodsCast = [
@@ -121,7 +128,159 @@ export const dummyShowsData = [
         "vote_average": 7.1,
         "vote_count": 31000,
         "runtime": '1h 25m',
-    }
+    },
+    {
+        "_id": "5",
+        "id": 5,
+        "title": "Dragon Ball Z : Fusion Reborn",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://image.tmdb.org/t/p/original/7AHvaEAeQfkfJ4OqcBePxa2ao09.jpg",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1995-03-04",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 7.6,
+        "vote_count": 13262,
+        "runtime": '51m',
+    },
+    {
+        "_id": "6",
+        "id": 6,
+        "title": "Dragon Ball Z : Bio-Broly",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://images2.vudu.com/poster2/2159827-360",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1994-07-09",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 5.8,
+        "vote_count": 6349,
+        "runtime": '47m',
+    },
+    {
+        "_id": "7",
+        "id": 7,
+        "title": "Dragon Ball Z : Broly-Second Coming",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://media.themoviedb.org/t/p/w500/Apnw8FWoPOIsu14d5dvaNZzFSJE.jpg",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1994-03-12",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 6.5,
+        "vote_count": 6824,
+        "runtime": '48m',
+    },
+    {
+        "_id": "8",
+        "id": 8,
+        "title": "Dragon Ball Z : Bojack Unbound",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://image.tmdb.org/t/p/original/iihTK9Af8G1ZzBjkIIAV4qQMkzF.jpg",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1993-07-10",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 7.1,
+        "vote_count": 7700,
+        "runtime": '48m',
+    },
+    {
+        "_id": "9",
+        "id": 9,
+        "title": "Dragon Ball Z : Broly - The Legendary Super Saiyan",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p21885430_p_v8_aa.jpg",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1993-03-06",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 7.4,
+        "vote_count": 12856,
+        "runtime": '1h 9m',
+    },
+    {
+        "_id": "10",
+        "id": 10,
+        "title": "Dragon Ball Z : Super Android 13!",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://i.pinimg.com/736x/42/76/d7/4276d70248efdc26096be7b01d6f01bc.jpg",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1992-07-11",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 7,
+        "vote_count": 8531,
+        "runtime": '46m',
+    },
+    {
+        "_id": "11",
+        "id": 11,
+        "title": "Dragon Ball Z : The Return of Cooler",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://i.ebayimg.com/00/s/MTYwMFgxMDY2/z/8E0AAOSwZetkgw0t/$_57.JPG?set_id=880000500F",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1992-03-07",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 6.9,
+        "vote_count": 9130,
+        "runtime": '45m',
+    },
+    {
+        "_id": "12",
+        "id": 12,
+        "title": "Dragon Ball Z : Cooler's Revenge",
+        "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
+        "backdrop_path": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p13602309_v_v8_ad.jpg",
+        "genres": [
+            { "id": 1, "name": "Action" },
+            { "id": 2, "name": "Science Fiction" },
+            { "id": 3, "name": "Martial Arts" }
+        ],
+        "casts": battleOfGodsCast,
+        "release_date": "1991-07-20",
+        "original_language": "jp",
+        "tagline": "I won't let you destroy my world...",
+        "vote_average": 7,
+        "vote_count": 9037,
+        "runtime": '47m',
+    },
 ]
 
 export const dummyDateTimeData = {
@@ -218,44 +377,29 @@ export const dummyDashboardData = {
 }
 
 
-export const dummyBookingData = [
+export const dummyWatchList = [
     {
-        "_id": "68396334fb83252d82e17295",
-        "user": { "name": "GreatStack", },
+        "_id": "1",
+        "user": { "name": "Lakshya Varshney", },
         "show": {
-            _id: "68352363e96d99513e4221a4",
+            _id: "1",
             movie: dummyShowsData[0],
-            showDateTime: "2025-06-30T02:30:00.000Z",
-            showPrice: 59,
-        },
-        "amount": 98,
-        "bookedSeats": ["D1", "D2"],
-        "isPaid": false,
+        }
     },
     {
-        "_id": "68396334fb83252d82e17295",
-        "user": { "name": "GreatStack", },
+        "_id": "2",
+        "user": { "name": "Lakshya Varshney", },
         "show": {
-            _id: "68352363e96d99513e4221a4",
-            movie: dummyShowsData[0],
-            showDateTime: "2025-06-30T02:30:00.000Z",
-            showPrice: 59,
-        },
-        "amount": 49,
-        "bookedSeats": ["A1"],
-        "isPaid": true,
+            _id: "2",
+            movie: dummyShowsData[1],
+        }
     },
     {
-        "_id": "68396334fb83252d82e17295",
-        "user": { "name": "GreatStack", },
+        "_id": "3",
+        "user": { "name": "Lakshya Varshney", },
         "show": {
-            _id: "68352363e96d99513e4221a4",
-            movie: dummyShowsData[0],
-            showDateTime: "2025-06-30T02:30:00.000Z",
-            showPrice: 59,
-        },
-        "amount": 147,
-        "bookedSeats": ["A1", "A2","A3"],
-        "isPaid": true,
+            _id: "3",
+            movie: dummyShowsData[2],
+        }
     },
 ]
