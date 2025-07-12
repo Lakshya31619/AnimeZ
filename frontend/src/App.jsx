@@ -11,7 +11,6 @@ import Footer from "./components/Footer";
 import Layout from "./pages/admin/Layout";
 import Dashboard from "./pages/admin/Dashboard";
 import AddMovies from "./pages/admin/AddMovies";
-import ListMovies from "./pages/admin/ListMovies";
 
 
 function App(){
@@ -31,7 +30,6 @@ function App(){
         <Route path="/admin/*" element={<Layout/>}>
           <Route index element={<Dashboard/>}/>
           <Route path="add-movies" element={<AddMovies/>}/>
-          <Route path="list-movies" element={<ListMovies/>}/>
         </Route>
       </Routes>
       {!isAdminRoute && <Footer/>}

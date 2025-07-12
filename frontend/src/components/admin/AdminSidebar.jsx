@@ -12,8 +12,7 @@ function AdminSidebar(){
 
     const adminNavlinks = [
         {name: 'Dashboard', path: '/admin', icon: LayoutDashboardIcon},
-        {name: 'Add Movies', path: '/admin/add-movies', icon: PlusSquareIcon},
-        {name: 'List Movies', path: '/admin/list-movies', icon: ListIcon},
+        {name: 'Add Movies', path: '/admin/add-movies', icon: PlusSquareIcon}
     ]
 
     return(
