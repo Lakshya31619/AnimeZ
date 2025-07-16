@@ -45,7 +45,12 @@ const superHeroCast = [
 ]
 
 const battleOfGodsCast = [
-    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+    {"name" : "Goku", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/1/14/93_SSGGokuDBS.png"},
+    {"name" : "Vegeta", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/f/f8/68_SSJ2VegetaZ3.png"},
+    {"name" : "Beerus", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/c/c9/99_Beerus.png"},
+    {"name" : "Whis", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/2/27/100_Whis.png"},
+    {"name" : "Piccolo", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/d/da/02_PiccoloZ1.png"},
+    
 ]
 
 const resurrectionFCast = [
