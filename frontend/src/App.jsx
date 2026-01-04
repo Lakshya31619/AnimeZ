@@ -11,11 +11,15 @@ import Footer from "./components/Footer";
 import Layout from "./pages/admin/Layout";
 import Dashboard from "./pages/admin/Dashboard";
 import AddMovies from "./pages/admin/AddMovies";
+import { useAppContext } from "./context/AppContext";
+import { SignIn } from "@clerk/clerk-react";
 
 
 function App(){
 
   const isAdminRoute = useLocation().pathname.startsWith('/admin');
+
+  const { user } = useAppContext();
 
   return (
     <>
@@ -27,7 +31,11 @@ function App(){
         <Route path='/movies/:id' element={<MovieDetails/>} />
         <Route path='/my-watchlist' element={<MyWatchList/>} />
         <Route path='/favorite' element={<Favorite/>} />
-        <Route path="/admin/*" element={<Layout/>}>
+        <Route path="/admin/*" element={user ? <Layout/> : (
+          <div className="min-h-screen flex justify-center items-center">
+            <SignIn fallbackRedirectUrl={'/admin'}/>
+          </div>
+        )}>
           <Route index element={<Dashboard/>}/>
           <Route path="add-movies" element={<AddMovies/>}/>
         </Route>

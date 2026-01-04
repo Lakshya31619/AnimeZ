@@ -54,7 +54,35 @@ const battleOfGodsCast = [
 ]
 
 const resurrectionFCast = [
-    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+    {"name" : "Goku", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/a/ad/GokuSuperSSGSS_Outfit4.png"},
+    {"name" : "Vegeta", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/7/78/VegetaSuperSSGSS_Outfit4.png"},
+    {"name" : "Frieza", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/a/ab/GFrieza_Outfit1.png"},
+    {"name" : "Beerus", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/0/0a/Beerus_Outfit1.png"},
+    {"name" : "Whis", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/5/53/Whis_Outfit1.png"},
+    {"name" : "Gohan", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/6/62/GohanAdult_Outfit4.png"},
+    {"name" : "Piccolo", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/b/bd/Piccolo_Outfit3.png"},
+    {"name" : "Krillin", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/2/2c/Krillin_Outfit1.png"},
+]   
+
+const fusionRebornCast = [
+    {"name" : "Gogeta", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/0/0b/153_SSJGogetaZ.png"},
+    {"name" : "Goku", "profile_path" : "http://static.wikia.nocookie.net/dbzsparkingzero/images/8/82/59_SSJ3GokuZ3.png"},
+    {"name" : "Vegeta", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/f/f8/68_SSJ2VegetaZ3.png"},
+    {"name" : "Janemba", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/1/1f/151_Janemba.png"},
+    {"name" : "Gotenks", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/3/3d/77_SSJGotenks.png"},
+    {"name" : "Gohan", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/e/ee/GSaiyaman_Outfit2.png"},
+    {"name" : "Goten", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/f/f7/69_Goten.png"},
+    {"name" : "Trunks", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/5/57/71_TrunksZ3.png"},
+]
+
+const zBrolyCast= [
+    {"name" : "Broly", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/c/cd/148_LSSJBrolyZ.png"},
+    {"name" : "Goku", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/0/02/57_SSJGokuZ3.png"},
+    {"name" : "Vegeta", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/3/3d/35_SSJVegetaZ2.png"},
+    {"name" : "Gohan", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/b/bd/32_SSJGohanT.png"},
+    {"name" : "Trunks", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/9/9d/TrunksSwordSSJ_Outfit2.png"},
+    {"name" : "Krillin", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/1/18/06_Krillin.png"},
+    {"name" : "Master Roshi", "profile_path" : "https://static.wikia.nocookie.net/dbzsparkingzero/images/e/e0/MRoshiMAX_Outfit2.png"}
 ]
 
 export const dummyShowsData = [
@@ -64,6 +92,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Super : Super Hero",
         "overview": "Dragon Ball Super: Super Hero is an animated film where the Red Ribbon Army returns with new androids, Gamma 1 and Gamma 2, to challenge Gohan and Piccolo. The heroes must push their limits to defend Earth against this revived threat, showcasing a clash between old and new foes. The movie is notable for its use of CGI animation.",
         "backdrop_path": "https://i.redd.it/hyp1w08f3xob1.jpg",
+        "background_path": "https://images.hdqwalls.com/wallpapers/dragon-ball-super-super-hero-2023-64.jpg",
         "movie_link": "https://short.icu/P1pvxHjWg",
         "genres": [
             { "id": 1, "name": "Action" },
@@ -84,7 +113,8 @@ export const dummyShowsData = [
         "title": "Dragon Ball Super : Broly",
         "overview": "Dragon Ball Super: Broly follows Goku and Vegeta as they encounter Broly, a Saiyan exiled from Planet Vegeta, now seeking revenge. The film explores the Saiyan history and Broly's origin story, culminating in a powerful clash between Broly and the Z fighters. Expect intense battles and a deeper look into Saiyan lore.",
         "backdrop_path": "https://i.pinimg.com/736x/39/c5/1f/39c51fef97b9152e17614f3285a2c752.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "background_path": "https://www.baltana.com/files/wallpapers-30/Dragon-Ball-Super-Broly-Action-HD-Desktop-Wallpaper-108691.jpg",
+        "movie_link": "https://short.icu/x3GUGXAQX",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
@@ -104,7 +134,8 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Resurrection 'F'",
         "overview": "Frieza is reborn and achieves the last of his transformations, and it is up to Goku and his warrior friends to join forces to fight the enemy who has returned from the dead.",
         "backdrop_path": "https://images-cdn.ubuy.co.in/63e21a8d71ea335e8b0afa82-dragon-ball-z-resurrection-f-sub.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "background_path":"https://image.tmdb.org/t/p/original/eBuqalE7LRPkEYyV1d1ApT3a7h1.jpg",
+        "movie_link": "https://short.icu/MEVY5xEdD",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
@@ -124,7 +155,8 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Battle of Gods",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://musicart.xboxlive.com/7/4f1a5100-0000-0000-0000-000000000002/504/image.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "background_path":"https://occ-0-8407-2219.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABYsM0Q4898nxMEPMQ7CbhSslpc4Ws_AILeBljd1zFKpoXDLQ5EYW7db9qdZX2L0yhYpPl7AUrK97sxXOUfelepJ6p48lV8zGHOZL.jpg?r=119",
+        "movie_link": "https://short.icu/9dMSUan4W",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
@@ -144,6 +176,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Wrath of the Dragon",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://image.tmdb.org/t/p/original/hqqxiPhhmCK21tOAbO3uVL0BmmB.jpg",
+        "background_path":"https://cdnb.artstation.com/p/assets/images/images/017/300/693/large/julien-majin-poster-rendu-creditq.jpg?1555424760",
         "movie_link": "https://short.icu/olieB3b78",
         "genres": [
             { "id": 1, "name": "Action" },
@@ -164,13 +197,14 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Fusion Reborn",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://image.tmdb.org/t/p/original/7AHvaEAeQfkfJ4OqcBePxa2ao09.jpg",
+        "background_path":"https://pbs.twimg.com/media/FjzV6xcWAAEgPjh?format=jpg&name=large",
         "movie_link": "https://short.icu/P1pvxHjWg",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
             { "id": 3, "name": "Martial Arts" }
         ],
-        "casts": battleOfGodsCast,
+        "casts": fusionRebornCast,
         "release_date": "1995-03-04",
         "original_language": "jp",
         "tagline": "I won't let you destroy my world...",
@@ -183,7 +217,8 @@ export const dummyShowsData = [
         "id": 7,
         "title": "Dragon Ball Z : Bio-Broly",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
-        "backdrop_path": "https://images2.vudu.com/poster2/2159827-360",
+        "backdrop_path": "https://image.tmdb.org/t/p/original/A0VKJ6eRIubW6wH4eAwcpQfjoRD.jpg",
+        "background_path":"https://image.tmdb.org/t/p/original/fZL8BvRSgDrdpBHiEnJ8ROB0rgN.jpg",
         "movie_link": "https://short.icu/C9I4rcmwq",
         "genres": [
             { "id": 1, "name": "Action" },
@@ -204,6 +239,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Broly-Second Coming",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://media.themoviedb.org/t/p/w500/Apnw8FWoPOIsu14d5dvaNZzFSJE.jpg",
+        "background_path":"https://pbs.twimg.com/media/FZuv4DdX0AEekCc?format=jpg&name=large",
         "movie_link": "https://short.icu/F4TwT5pDm",
         "genres": [
             { "id": 1, "name": "Action" },
@@ -224,7 +260,8 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Bojack Unbound",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://image.tmdb.org/t/p/original/iihTK9Af8G1ZzBjkIIAV4qQMkzF.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "background_path":"https://m.media-amazon.com/images/S/pv-target-images/91b554f2f11f2be1e900f1f9e4c458f0dda6cb7a3bba5aa5a0ee8c7af5a60949.jpg",
+        "movie_link": "https://short.icu/f-_uTiBTz",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
@@ -244,13 +281,14 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Broly - The Legendary Super Saiyan",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p21885430_p_v8_aa.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "background_path":"https://image.tmdb.org/t/p/original/xuO9vN0v1yNHTvsI3YuIgm1aIJ6.jpg",
+        "movie_link": "https://short.icu/xnX_yuz7d",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
             { "id": 3, "name": "Martial Arts" }
         ],
-        "casts": battleOfGodsCast,
+        "casts": zBrolyCast,
         "release_date": "1993-03-06",
         "original_language": "jp",
         "tagline": "I won't let you destroy my world...",
@@ -264,7 +302,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Super Android 13!",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://i.pinimg.com/736x/42/76/d7/4276d70248efdc26096be7b01d6f01bc.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "movie_link": "https://short.icu/saplDj6ns",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
@@ -284,7 +322,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : The Return of Cooler",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://i.ebayimg.com/00/s/MTYwMFgxMDY2/z/8E0AAOSwZetkgw0t/$_57.JPG?set_id=880000500F",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "movie_link": "https://short.icu/H07fOFf7T",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },

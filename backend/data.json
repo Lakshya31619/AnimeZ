@@ -68,7 +68,7 @@
         "title": "Dragon Ball Z : Resurrection 'F'",
         "overview": "Frieza is reborn and achieves the last of his transformations, and it is up to Goku and his warrior friends to join forces to fight the enemy who has returned from the dead.",
         "backdrop_path": "https://images-cdn.ubuy.co.in/63e21a8d71ea335e8b0afa82-dragon-ball-z-resurrection-f-sub.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "movie_link": "https://short.icu/MEVY5xEdD",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
@@ -159,7 +159,7 @@
         "id": 7,
         "title": "Dragon Ball Z : Bio-Broly",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
-        "backdrop_path": "https://images2.vudu.com/poster2/2159827-360",
+        "backdrop_path": "https://image.tmdb.org/t/p/original/A0VKJ6eRIubW6wH4eAwcpQfjoRD.jpg",
         "movie_link": "https://short.icu/C9I4rcmwq",
         "genres": [
             { "id": 1, "name": "Action" },
@@ -204,18 +204,29 @@
         "title": "Dragon Ball Z : Bojack Unbound",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://image.tmdb.org/t/p/original/iihTK9Af8G1ZzBjkIIAV4qQMkzF.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "movie_link": "https://short.icu/f-_uTiBTz",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
             { "id": 3, "name": "Martial Arts" }
         ],
         "casts": [
-                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"}
+                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+                    {"name" : "Bojack", "profile_path" : ""},
+                    {"name" : "Gokua", "profile_path" : ""},
+                    {"name" : "Zengya", "profile_path" : ""},
+                    {"name" : "Trunks", "profile_path" : ""},
+                    {"name" : "Vegeta", "profile_path" : ""},
+                    {"name" : "Tien Shinhan", "profile_path" : ""},
+                    {"name" : "Krillin", "profile_path" : ""},
+                    {"name" : "Gohan", "profile_path" : ""},
+                    {"name" : "Picollo", "profile_path" : ""},
+                    {"name" : "Yamcha", "profile_path" : ""},
+                    {"name" : "Mr. Satan", "profile_path" : ""}
                 ],
         "release_date": "1993-07-10",
         "original_language": "jp",
-        "tagline": "I won't let you destroy my world...",
+        "tagline": "Goku : Beleive in yourself, Gohan",
         "vote_average": 7.1,
         "vote_count": 7700,
         "runtime": "48m"
@@ -226,18 +237,28 @@
         "title": "Dragon Ball Z : Broly - The Legendary Super Saiyan",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p21885430_p_v8_aa.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "movie_link": "https://short.icu/xCEXq2JLf",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
             { "id": 3, "name": "Martial Arts" }
         ],
         "casts": [
-                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"}
+                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+                    {"name" : "Broly", "profile_path" : ""},
+                    {"name" : "Paragus", "profile_path" : ""},
+                    {"name" : "Vegeta", "profile_path" : ""},
+                    {"name" : "Gohan", "profile_path" : ""},
+                    {"name" : "Piccolo", "profile_path" : ""},
+                    {"name" : "Trunks", "profile_path" : ""},
+                    {"name" : "Krillin", "profile_path" : ""},
+                    {"name" : "Master Roshi", "profile_path" : ""},
+                    {"name" : "Oolong", "profile_path" : ""},
+                    {"name" : "King Vegeta", "profile_path" : ""}
                 ],
         "release_date": "1993-03-06",
         "original_language": "jp",
-        "tagline": "I won't let you destroy my world...",
+        "tagline": "Broly : Kakarot, I choose you to be the first of my victims.",
         "vote_average": 7.4,
         "vote_count": 12856,
         "runtime": "1h 9m"
@@ -248,18 +269,26 @@
         "title": "Dragon Ball Z : Super Android 13!",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://i.pinimg.com/736x/42/76/d7/4276d70248efdc26096be7b01d6f01bc.jpg",
-        "movie_link": "https://short.icu/P1pvxHjWg",
+        "movie_link": "https://short.icu/saplDj6ns",
         "genres": [
             { "id": 1, "name": "Action" },
             { "id": 2, "name": "Science Fiction" },
             { "id": 3, "name": "Martial Arts" }
         ],
         "casts": [
-                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"}
+                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+                    {"name" : "Vegeta", "profile_path" : ""},
+                    {"name" : "Android 13", "profile_path" : ""},
+                    {"name" : "Android 14", "profile_path" : ""},
+                    {"name" : "Android 15", "profile_path" : ""},
+                    {"name" : "Trunks", "profile_path": ""},
+                    {"name" : "Krillin", "profile_path" : ""},
+                    {"name" : "Gohan", "profile_path" : ""},
+                    {"name" : "Piccolo", "profile_path" : ""}
                 ],
         "release_date": "1992-07-11",
         "original_language": "jp",
-        "tagline": "I won't let you destroy my world...",
+        "tagline": "Trunks : You are a slave with no free will",
         "vote_average": 7,
         "vote_count": 8531,
         "runtime": "46m"
@@ -277,11 +306,13 @@
             { "id": 3, "name": "Martial Arts" }
         ],
         "casts": [
-                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"}
+                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+                    {"name" : "Vegeta", "profile_path" : ""},
+                    {"name" : "Metal Cooler", "profile_path": ""}
                 ],
         "release_date": "1992-03-07",
         "original_language": "jp",
-        "tagline": "I won't let you destroy my world...",
+        "tagline": "Vegeta : You'll spill no saiyan blood today",
         "vote_average": 6.9,
         "vote_count": 9130,
         "runtime": "45m"
@@ -299,11 +330,14 @@
             { "id": 3, "name": "Martial Arts" }
         ],
         "casts": [
-                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"}
+                    {"name" : "Goku", "profile_path" : "https://drawafun.com/wp-content/uploads/2025/05/how-to-draw-goku-step-12.jpg"},
+                    {"name" : "Gohan", "profile_path" : ""},
+                    {"name" : "Cooler", "profile_path" : ""},
+                    {"name" : "Piccolo", "profile_path": ""}
                 ],
         "release_date": "1991-07-20",
         "original_language": "jp",
-        "tagline": "I won't let you destroy my world...",
+        "tagline": "Goku : Your hour has arrived",
         "vote_average": 7,
         "vote_count": 9037,
         "runtime": "47m"
