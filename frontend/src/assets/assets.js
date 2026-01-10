@@ -92,7 +92,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Super : Super Hero",
         "overview": "Dragon Ball Super: Super Hero is an animated film where the Red Ribbon Army returns with new androids, Gamma 1 and Gamma 2, to challenge Gohan and Piccolo. The heroes must push their limits to defend Earth against this revived threat, showcasing a clash between old and new foes. The movie is notable for its use of CGI animation.",
         "backdrop_path": "https://i.redd.it/hyp1w08f3xob1.jpg",
-        "background_path": "https://images.hdqwalls.com/wallpapers/dragon-ball-super-super-hero-2023-64.jpg",
+        "background_path": "https://images.squarespace-cdn.com/content/v1/5c95f8d416b640656eb7765a/1652322677648-J2UNCUEXTP18NU3ZRD2L/dbz-movie.jpg?format=2500w",
         "movie_link": "https://short.icu/P1pvxHjWg",
         "genres": [
             { "id": 1, "name": "Action" },
@@ -302,6 +302,7 @@ export const dummyShowsData = [
         "title": "Dragon Ball Z : Super Android 13!",
         "overview": "In Dragon Ball Z: Battle of Gods, Beerus, the God of Destruction, seeks out Goku after hearing of a powerful Saiyan. A battle ensues, with Goku eventually ascending to Super Saiyan God to confront Beerus, leading to a universe-threatening clash. ",
         "backdrop_path": "https://i.pinimg.com/736x/42/76/d7/4276d70248efdc26096be7b01d6f01bc.jpg",
+        "background_path":"https://assets.grok.com/users/b5c33473-3080-4140-a7a2-8ac1d0f17504/generated/e9a6828c-34cc-49c5-9679-484dfa8406cb/image.jpg",
         "movie_link": "https://short.icu/saplDj6ns",
         "genres": [
             { "id": 1, "name": "Action" },
