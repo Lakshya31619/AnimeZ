@@ -6,24 +6,23 @@ import { clerkMiddleware } from '@clerk/express';
 import { serve } from 'inngest/express';
 import { functions, inngest } from './inngest/index.js';
 import showRouter from './routes/showRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 const app = express();
 const PORT = 3000;
 
 await connectDB();
 
-//Middleware
 app.use(express.json());
 app.use(cors({
-  origin: "https://animez-super.vercel.app/",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: "http://localhost:5173",
   credentials: true
 }));
 app.use(clerkMiddleware());
 
-//API Routes
 app.get('/', (req, res)=> res.send('Server is Live'));
 app.use('/api/inngest', serve({client: inngest, functions}));
 app.use('/api/show', showRouter);
+app.use('/api/user', userRouter);
 
 app.listen(PORT, ()=> console.log(`Server started at http://localhost:${PORT}`));
