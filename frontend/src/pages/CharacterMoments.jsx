@@ -1,4 +1,3 @@
-// CharacterMoments.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MuxPlayer from "@mux/mux-player-react";
@@ -75,59 +74,57 @@ function CharacterMoments() {
 
   const [tokens, setTokens] = useState({});
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const BACKEND_URL = import.meta.env.VITE_API_URL; // Render backend
 
   useEffect(() => {
     const fetchTokens = async () => {
-      if (videos.length === 0) return;
-
-      setLoading(true);
-      setError(null);
-
       try {
-        // Fetch all tokens in parallel
-        const tokenEntries = await Promise.all(
-          videos.map(async (moment) => {
-            if (!moment.video) return null;
+        const newTokens = {};
 
-            const res = await fetch(`${BACKEND_URL}/api/mux/${moment.video}`);
-            if (!res.ok) throw new Error(`Failed to fetch token for ${moment.video}`);
+        for (const moment of videos) {
+          if (!moment.video) continue;
 
-            const data = await res.json();
-            if (data.token) return [moment.video, data.token];
-            return null;
-          })
-        );
+          const res = await fetch(
+            `http://localhost:3000/api/mux/${moment.video}`
+          );
 
-        // Convert array of [video, token] to object
-        const newTokens = Object.fromEntries(tokenEntries.filter(Boolean));
+          if (!res.ok) {
+            throw new Error("Failed to fetch token");
+          }
+
+          const data = await res.json();
+
+          if (data.token) {
+            newTokens[moment.video] = data.token;
+          }
+        }
+
         setTokens(newTokens);
       } catch (err) {
         console.error("Token fetch error:", err);
         setError("Failed to load videos.");
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchTokens();
-  }, [videos, BACKEND_URL]);
+    if (videos.length > 0) {
+      fetchTokens();
+    }
+  }, [videos]);
 
   return (
     <div className="px-6 md:px-16 lg:px-40 pt-32 min-h-screen">
-      <h1 className="text-3xl font-bold mb-10 capitalize">{character} Moments</h1>
+      <h1 className="text-3xl font-bold mb-10 capitalize">
+        {character} Moments
+      </h1>
 
-      {loading && <p className="text-gray-400 mb-6">Loading videos...</p>}
-      {error && <p className="text-red-500 mb-6">{error}</p>}
+      {error && (
+        <p className="text-red-500 mb-6">{error}</p>
+      )}
 
       <div className="grid md:grid-cols-2 gap-10">
-        {videos.length === 0 && !loading && <p>No moments available.</p>}
-
         {videos.map((moment, index) => (
           <div key={index} className="bg-gray-900 rounded-xl p-4">
             <h2 className="text-lg font-semibold">{moment.title}</h2>
+
             <p className="text-sm text-gray-400 mt-1 mb-4">
               {moment.show}
               {moment.saga && ` • ${moment.saga}`}
@@ -144,12 +141,12 @@ function CharacterMoments() {
                 />
               </div>
             )}
-
-            {moment.video && !tokens[moment.video] && !loading && (
-              <p className="text-gray-500 text-sm">Video unavailable.</p>
-            )}
           </div>
         ))}
+
+        {videos.length === 0 && (
+          <p>No moments available.</p>
+        )}
       </div>
     </div>
   );
