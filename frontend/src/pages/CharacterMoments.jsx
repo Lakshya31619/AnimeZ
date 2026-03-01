@@ -83,19 +83,11 @@ function CharacterMoments() {
         for (const moment of videos) {
           if (!moment.video) continue;
 
-          const res = await fetch(
-            `http://localhost:3000/api/mux/${moment.video}`
-          );
-
-          if (!res.ok) {
-            throw new Error("Failed to fetch token");
-          }
+          const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/mux/${moment.video}`);
+          if (!res.ok) throw new Error("Failed to fetch token");
 
           const data = await res.json();
-
-          if (data.token) {
-            newTokens[moment.video] = data.token;
-          }
+          if (data.token) newTokens[moment.video] = data.token;
         }
 
         setTokens(newTokens);
@@ -105,9 +97,7 @@ function CharacterMoments() {
       }
     };
 
-    if (videos.length > 0) {
-      fetchTokens();
-    }
+    if (videos.length > 0) fetchTokens();
   }, [videos]);
 
   return (
