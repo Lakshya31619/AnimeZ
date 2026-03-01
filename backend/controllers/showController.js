@@ -18,7 +18,6 @@ export const getNowPlayingMovies = (req, res) => {
     }
 };
 
-// API to add a new show to the database
 export const addShow = async (req, res) => {
     try {
         const { movieId } = req.body;
@@ -56,3 +55,20 @@ export const addShow = async (req, res) => {
     }
 };
 
+export const searchMovies = async (req, res) => {
+    try {
+        const { q } = req.query;
+
+        if (!q) {
+            return res.json([]);
+        }
+        const filteredMovies = data.filter(movie =>
+            movie.title.toLowerCase().includes(q.toLowerCase())
+        );
+
+        res.json(filteredMovies);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+};

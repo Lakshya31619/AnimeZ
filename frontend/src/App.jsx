@@ -12,10 +12,12 @@ import Movies from "./pages/Movies";
 import MovieDetails from "./pages/MovieDetails";
 import MyWatchList from "./pages/MyWatchList";
 import Favorite from "./pages/Favorite";
-
+import Search from "./pages/Search";
 import Layout from "./pages/admin/Layout";
 import Dashboard from "./pages/admin/Dashboard";
 import AddMovies from "./pages/admin/AddMovies";
+import Moments from "./pages/Moments";
+import CharacterMoments from "./pages/CharacterMoments";
 
 import { useAppContext } from "./context/AppContext";
 
@@ -43,7 +45,9 @@ function App() {
         <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/my-watchlist" element={<MyWatchList />} />
         <Route path="/favorite" element={<Favorite />} />
-
+        <Route path="/search" element={<Search />} />
+        <Route path="/moments" element={<Moments />} />
+        <Route path="/moments/:character" element={<CharacterMoments />} />
         {/* Admin Routes */}
         <Route
           path="/admin/*"

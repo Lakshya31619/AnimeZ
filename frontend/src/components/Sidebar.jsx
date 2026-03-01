@@ -26,6 +26,9 @@ function Sidebar() {
           <Link to="/movies" onClick={() => setIsOpen(false)}>Movies</Link>
           <Link to="/my-watchlist" onClick={() => setIsOpen(false)}>Watch List</Link>
           <Link to="/favorite" onClick={() => setIsOpen(false)}>Favorites</Link>
+
+          {/* ✅ NEW */}
+          <Link to="/moments" onClick={() => setIsOpen(false)}>Moments</Link>
         </div>
       </aside>
     </>

@@ -7,6 +7,7 @@ import { serve } from 'inngest/express';
 import { functions, inngest } from './inngest/index.js';
 import showRouter from './routes/showRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import muxRouter from "./routes/muxRoutes.js"; 
 
 const app = express();
 const PORT = 3000;
@@ -24,5 +25,6 @@ app.get('/', (req, res)=> res.send('Server is Live'));
 app.use('/api/inngest', serve({client: inngest, functions}));
 app.use('/api/show', showRouter);
 app.use('/api/user', userRouter);
+app.use("/api/mux", muxRouter);
 
 app.listen(PORT, ()=> console.log(`Server started at http://localhost:${PORT}`));
