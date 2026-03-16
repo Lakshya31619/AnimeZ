@@ -1,58 +1,248 @@
-import React, { useEffect, useState } from "react";
-import { dummyShowsData } from "../../assets/assets";
-import Loading from "../../components/Loading";
+import React, { useState } from "react";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+
 import Title from "../../components/admin/Title";
-import { CheckIcon, StarIcon } from "lucide-react";
-import { kConverter } from "../../lib/kConverter";
+import LogoSelector from "../../components/admin/LogoSelector";
+import CastSelector from "../../components/admin/CastSelector";
 
-function AddMovies(){
+function AddMovies() {
 
-    const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState(null);
+  const { getToken } = useAuth();
 
-    const fetchNowPlayingMovies = async () => {
-        setNowPlayingMovies(dummyShowsData);
+  const [formData, setFormData] = useState({
+    title: "",
+    overview: "",
+    backdrop_path: "",
+    background_path: "",
+    movie_link: "",
+    genres: "",
+    release_date: "",
+    original_language: "",
+    tagline: "",
+    vote_average: "",
+    runtime: ""
+  });
+
+  const [logo, setLogo] = useState("");
+  const [casts, setCasts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+
+      const token = await getToken();
+
+      const payload = {
+        ...formData,
+        logo,
+
+        // ✅ send only ids
+        casts: casts.map(c => c._id),
+
+        genres: formData.genres.split(",").map(g => g.trim()),
+        vote_average: Number(formData.vote_average)
+      };
+
+      const res = await axios.post(
+        "http://localhost:3000/api/show/add",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (res.data.success) {
+
+        alert("Movie Added Successfully ✅");
+
+        setFormData({
+          title: "",
+          overview: "",
+          backdrop_path: "",
+          background_path: "",
+          movie_link: "",
+          genres: "",
+          release_date: "",
+          original_language: "",
+          tagline: "",
+          vote_average: "",
+          runtime: ""
+        });
+
+        setLogo("");
+        setCasts([]);
+
+      } else {
+        alert(res.data.message);
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong ❌");
     }
 
-    useEffect(()=> {
-        fetchNowPlayingMovies();
-    })
+    setLoading(false);
+  };
 
-    return nowPlayingMovies.length > 0 ? (
-        <>
-            <Title text1="Add" text2="Movies"/>
-            <p className="mt-10 text-lg font-medium">Now Playing Movies</p>
-            <div className="overflow-x-auto pb-4 no-scrollbar">
-                <div className="group flex flex-wrap gap-4 mt-4 w-max">
-                    {nowPlayingMovies.map((movie)=>(
-                        <div key={movie.id} className={`relative max-w-40 cursor-pointer group-hover:not-hover:opacity-40 hover:-translate-y-1 transition duration-300`}
-                        onClick={()=>setSelectedMovie(movie.id)}>
-                            <div className="relative rounded-lg overflow-hidden">
-                                <img src={movie.backdrop_path} alt="" className="w-full object-cover brightness-90 h-60" />
-                                <div className="text-sm flex items-center justify-between p-2 bg-black/70 w-full absolute bottom-0 left-0">
-                                    <p className="flex items-center gap-1 text-gray-400">
-                                        <StarIcon className="w-4 h-4 text-primary fill-primary" />
-                                        {movie.vote_average.toFixed(1)}
-                                    </p>
-                                    <p className="text-gray-300">{kConverter(movie.vote_count)}Votes</p>
-                                </div>
-                            </div>
-                            {selectedMovie === movie.id && (
-                                <div className="absolute top-2 right-2 flex items-center justify-center bg-primary h-6 w-6 rounded">
-                                    <CheckIcon className="w-4 h-4 text-white" strokeWidth={2.5} />
-                                </div>
-                            )}
-                            <p className="font-medium truncate">{movie.title}</p>
-                            <p className="text-gray-400 text-sm">{movie.release_date}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <button className="bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer">Add Movie</button>
-        </>
-    ) : (
-        <Loading/>
-    )
+  return (
+    <>
+      <Title text1="Add" text2="Movie" />
+
+      <form
+        onSubmit={handleSubmit}
+        className="mt-8 flex flex-col gap-6 max-w-4xl"
+      >
+
+        <input
+          type="text"
+          name="title"
+          placeholder="Movie Title"
+          value={formData.title}
+          onChange={handleChange}
+          className="border p-2 rounded"
+          required
+        />
+
+        <textarea
+          name="overview"
+          placeholder="Overview"
+          value={formData.overview}
+          onChange={handleChange}
+          className="border p-2 rounded"
+          required
+        />
+
+        <LogoSelector
+          selectedLogo={logo}
+          setSelectedLogo={setLogo}
+        />
+
+        <input
+          type="text"
+          name="backdrop_path"
+          placeholder="Poster Image URL"
+          value={formData.backdrop_path}
+          onChange={handleChange}
+          className="border p-2 rounded"
+          required
+        />
+
+        <input
+          type="text"
+          name="background_path"
+          placeholder="Background Image URL"
+          value={formData.background_path}
+          onChange={handleChange}
+          className="border p-2 rounded"
+          required
+        />
+
+        <input
+          type="text"
+          name="movie_link"
+          placeholder="Streaming Link"
+          value={formData.movie_link}
+          onChange={handleChange}
+          className="border p-2 rounded"
+          required
+        />
+
+        {/* CAST SELECTOR */}
+        <CastSelector
+          selectedCast={casts}
+          setSelectedCast={setCasts}
+          limit={10}
+        />
+
+        <div className="grid grid-cols-2 gap-4">
+
+          <input
+            type="text"
+            name="genres"
+            placeholder="Genres (Action, Adventure)"
+            value={formData.genres}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          />
+
+          <input
+            type="date"
+            name="release_date"
+            value={formData.release_date}
+            onChange={handleChange}
+            className="border p-2 rounded w-full text-white"
+            required
+          />
+
+          <input
+            type="text"
+            name="runtime"
+            placeholder="Runtime (24m)"
+            value={formData.runtime}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          />
+
+          <input
+            type="number"
+            step="0.1"
+            name="vote_average"
+            placeholder="Rating"
+            value={formData.vote_average}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          />
+
+          <input
+            type="text"
+            name="original_language"
+            placeholder="Language (ja)"
+            value={formData.original_language}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          />
+
+          <input
+            type="text"
+            name="tagline"
+            placeholder="Tagline"
+            value={formData.tagline}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-primary text-white px-6 py-3 rounded"
+        >
+          {loading ? "Adding..." : "Add Movie"}
+        </button>
+
+      </form>
+    </>
+  );
 }
 
 export default AddMovies;

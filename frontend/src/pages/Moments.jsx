@@ -1,42 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const characters = [
-  { name: "Goku", image: "https://ovicio.com.br/wp-content/uploads/dragon-ball-super-broly-trailer-1.jpg" },
-  { name: "Vegeta", image: "https://i.pinimg.com/736x/3a/64/44/3a6444c88e18e8bdab8547bbe96e45ae.jpg" },
-  { name: "Piccolo", image: "https://comicbook.com/wp-content/uploads/sites/4/2022/02/78c40cab-a006-4d7f-beea-79154e83bccb.jpg" },
-  { name: "Gohan", image: "https://i0.wp.com/codigoespagueti.com/wp-content/uploads/2024/02/gohan-dragon-ball-bocetos-diseno.jpg" },
-  { name: "Broly", image: "https://comicvine.gamespot.com/a/uploads/scale_super/11137/111374740/6795687-awovu6e.jpg"},
-  { name: "Vegito", image: "https://m.media-amazon.com/images/M/MV5BNmY4MDJhOWEtNzMxNi00ZmMwLTg2NDItYzE0NDU3MmY0MmMwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"},
-  { name: "Gogeta", image: "https://imagenes.hobbyconsolas.com/files/image_1920_1080/uploads/imagenes/2024/04/04/6903ada1868bd.jpeg"},
-  { name: "Trunks", image: "https://static0.srcdn.com/wordpress/wp-content/uploads/2016/09/Future-Trunks-meets-Goku.jpg"},
-];
 
 function Moments() {
   const navigate = useNavigate();
+  const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/character/all");
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch characters");
+        }
+
+        const data = await res.json();
+
+        console.log("Characters:", data); // debug log
+
+        setCharacters(data.characters);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching characters:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchCharacters();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="pt-32 text-center text-xl font-semibold">
+        Loading characters...
+      </div>
+    );
+  }
 
   return (
-    <div className="px-6 md:px-16 lg:px-40 pt-32 min-h-screen">
-      <h1 className="text-3xl font-bold mb-10">Character Moments</h1>
+    <div className="px-6 md:px-16 lg:px-32 pt-28 pb-16 min-h-screen">
+      
+      {/* Page Header */}
+      <div className="mb-12">
+        <h1 className="text-4xl font-bold mb-2">Character Moments</h1>
+      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+      {/* Character Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
         {characters.map((char) => (
           <div
-            key={char.name}
-            onClick={() => navigate(`/moments/${char.name.toLowerCase()}`)}
-            className="cursor-pointer bg-gray-900 rounded-xl overflow-hidden hover:scale-105 transition"
+            key={char._id}
+            onClick={() => navigate(`/moments/${char._id}`)}
+            className="group cursor-pointer bg-gray-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-2 transition duration-300"
           >
-            <img
-              src={char.image}
-              alt={char.name}
-              className="h-60 w-full object-cover"
-            />
-            <div className="p-4 text-center text-lg font-semibold">
-              {char.name}
+            
+            {/* Image */}
+            <div className="overflow-hidden">
+              <img
+                src={char.profileLink}
+                alt={char.name}
+                className="h-60 w-full object-cover group-hover:scale-110 transition duration-500"
+              />
             </div>
+
+            {/* Name */}
+            <div className="p-4 text-center">
+              <h2 className="text-lg font-semibold group-hover:text-orange-400 transition">
+                {char.name}
+              </h2>
+            </div>
+
           </div>
         ))}
       </div>
+
     </div>
   );
 }

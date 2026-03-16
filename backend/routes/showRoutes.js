@@ -1,16 +1,21 @@
-import express from 'express';
-import { 
-  addShow, 
-  getNowPlayingMovies,
-  searchMovies
-} from '../controllers/showController.js';
-import { protectAdmin } from '../middleware/auth.js';
+import express from "express";
+import {
+  addShow,
+  getAllShows,
+  deleteShow,
+  updateShow,
+  searchShows
+} from "../controllers/showController.js";
 
-const showRouter = express.Router();
+import { protectAdmin } from "../middleware/auth.js";
 
-showRouter.get('/now-playing', protectAdmin, getNowPlayingMovies);
-showRouter.post('/add', protectAdmin, addShow);
+const router = express.Router();
 
-showRouter.get('/search', searchMovies);
+router.post("/add", protectAdmin, addShow);
+router.get("/all", getAllShows);
+router.put("/update/:id", protectAdmin, updateShow);
+router.delete("/delete/:id", protectAdmin, deleteShow);
 
-export default showRouter;
+router.get("/search", searchShows);
+
+export default router;

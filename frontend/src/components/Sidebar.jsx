@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MenuIcon, XIcon } from "lucide-react";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>

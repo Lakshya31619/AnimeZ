@@ -1,74 +1,223 @@
-import Movie from '../models/Movie.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import mongoose from "mongoose";
+import Movie from "../models/Movie.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dataPath = path.join(__dirname, '../data.json');
-const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
-export const getNowPlayingMovies = (req, res) => {
-    try {
-        const movies = data;
-        res.json({ success: true, movies });
-    } catch (error) {
-        console.error(error);
-        res.json({ success: false, message: error.message });
-    }
-};
-
+// ================= ADD MOVIE =================
 export const addShow = async (req, res) => {
-    try {
-        const { movieId } = req.body;
+  try {
 
-        let movie = await Movie.findById(movieId);
+    const movieData = { ...req.body };
 
-        if (!movie) {
-            const movieApiData = data.find((m) => m._id === movieId);
-            if (!movieApiData) {
-                return res.status(404).json({ success: false, message: 'Movie not found in local data.' });
-            }
-
-            const movieDetails = {
-                _id: movieId,
-                title: movieApiData.title,
-                overview: movieApiData.overview,
-                backdrop_path: movieApiData.backdrop_path,
-                movie_link: movieApiData.movie_link,
-                genres: movieApiData.genres,
-                casts: movieApiData.cast,
-                release_date: movieApiData.release_date,
-                original_language: movieApiData.original_language,
-                tagline: movieApiData.tagline || "",
-                vote_average: movieApiData.vote_average,
-                runtime: movieApiData.runtime,
-            };
-
-            await Movie.create(movieDetails);
-        }
-
-        res.json({ success: true, message: 'Movie added successfully.' });
-    } catch (error) {
-        console.error(error);
-        res.json({ success: false, message: error.message });
+    if (!movieData.title) {
+      return res.status(400).json({
+        success: false,
+        message: "Movie title is required"
+      });
     }
+
+    const existingMovie = await Movie.findOne({ title: movieData.title });
+
+    if (existingMovie) {
+      return res.json({
+        success: false,
+        message: "Movie already exists"
+      });
+    }
+
+    // Convert genres → array
+    if (typeof movieData.genres === "string") {
+      movieData.genres = movieData.genres
+        .split(",")
+        .map(g => g.trim());
+    }
+
+    // Ensure vote_average is number
+    if (movieData.vote_average) {
+      movieData.vote_average = Number(movieData.vote_average);
+    }
+
+    const newMovie = await Movie.create(movieData);
+
+    res.json({
+      success: true,
+      message: "Movie added successfully",
+      movie: newMovie
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
 };
 
-export const searchMovies = async (req, res) => {
-    try {
-        const { q } = req.query;
 
-        if (!q) {
-            return res.json([]);
-        }
-        const filteredMovies = data.filter(movie =>
-            movie.title.toLowerCase().includes(q.toLowerCase())
-        );
 
-        res.json(filteredMovies);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: error.message });
+// ================= GET ALL MOVIES =================
+export const getAllShows = async (req, res) => {
+  try {
+
+    const movies = await Movie.find().sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      movies
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
+
+
+// ================= UPDATE MOVIE =================
+export const updateShow = async (req, res) => {
+  try {
+
+    const { id } = req.params;
+
+    // 🔴 FIX: prevent undefined ObjectId crash
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid movie ID"
+      });
     }
+
+    const updateData = { ...req.body };
+
+    // Convert genres if string
+    if (typeof updateData.genres === "string") {
+      updateData.genres = updateData.genres
+        .split(",")
+        .map(g => g.trim());
+    }
+
+    // Ensure rating number
+    if (updateData.vote_average) {
+      updateData.vote_average = Number(updateData.vote_average);
+    }
+
+    const updatedMovie = await Movie.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true }
+    );
+
+    if (!updatedMovie) {
+      return res.json({
+        success: false,
+        message: "Movie not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Movie updated successfully",
+      movie: updatedMovie
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
+
+
+// ================= DELETE MOVIE =================
+export const deleteShow = async (req, res) => {
+  try {
+
+    const { id } = req.params;
+
+    // 🔴 Prevent invalid id crash
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid movie ID"
+      });
+    }
+
+    const movie = await Movie.findByIdAndDelete(id);
+
+    if (!movie) {
+      return res.json({
+        success: false,
+        message: "Movie not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Movie deleted successfully"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
+
+
+// ================= SEARCH MOVIES =================
+export const searchShows = async (req, res) => {
+  try {
+
+    const query = req.query.q?.trim();
+
+    if (!query) {
+      return res.json({
+        success: true,
+        movies: []
+      });
+    }
+
+    const movies = await Movie.find({
+      title: { $regex: query, $options: "i" }
+    })
+    .limit(20) 
+    .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      movies
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
 };

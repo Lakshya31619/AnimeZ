@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   ArrowRight,
   ChevronLeft,
@@ -7,61 +7,93 @@ import {
   ClockIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { dummyShowsData } from "../assets/assets";
+import axios from "axios";
 
 function HeroSection() {
   const navigate = useNavigate();
 
+  const [movies, setMovies] = useState([]);
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 = next, -1 = prev
+  const [loading, setLoading] = useState(true);
 
-  const movie = dummyShowsData[index];
+  /* ================= FETCH MOVIES ================= */
 
-  // LOGO CONDITION
-  const logoSrc =
-    movie.id === 1 || movie.id === 2
-      ? "/animeLogoSuper.png"
-      : "/animeLogoZ.png";
+  const fetchMovies = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/show/all`
+      );
 
-  const prevSlide = () => {
-    setDirection(-1);
-    setIndex((prev) =>
-      prev === 0 ? dummyShowsData.length - 1 : prev - 1
-    );
+      if (data.success) {
+        setMovies(data.movies);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
+  const length = movies.length;
+
+  const movie = useMemo(() => movies[index], [movies, index]);
+
+  /* ================= SLIDER ================= */
 
   const nextSlide = () => {
-    setDirection(1);
-    setIndex((prev) =>
-      prev === dummyShowsData.length - 1 ? 0 : prev + 1
-    );
+    setIndex((prev) => (prev === length - 1 ? 0 : prev + 1));
   };
 
-  // AUTO SLIDE
+  const prevSlide = () => {
+    setIndex((prev) => (prev === 0 ? length - 1 : prev - 1));
+  };
+
+  /* ================= AUTO SLIDE ================= */
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDirection(1);
-      setIndex((prev) =>
-        prev === dummyShowsData.length - 1 ? 0 : prev + 1
-      );
-    }, 5000);
+    if (!length) return;
+
+    const interval = setInterval(nextSlide, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [length]);
+
+  /* ================= LOADING ================= */
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-black text-white">
+        Loading movies...
+      </div>
+    );
+  }
+
+  /* ================= NO MOVIES ================= */
+
+  if (!movie) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-black text-white">
+        No movies found
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* SLIDING BACKGROUND */}
+
+      {/* BACKGROUND */}
       <div
-        key={index}
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out"
-        style={{
-          backgroundImage: `url(${movie.background_path})`,
-          transform: `translateX(${direction * 0}px)`,
-        }}
+        key={movie._id}
+        className="absolute inset-0 bg-cover bg-center transition-all duration-700"
+        style={{ backgroundImage: `url(${movie.background_path})` }}
       />
 
-      {/* Overlay */}
+      {/* OVERLAY */}
       <div className="absolute inset-0 bg-black/60 z-10" />
 
       {/* LEFT BUTTON */}
@@ -84,27 +116,28 @@ function HeroSection() {
 
       {/* CONTENT */}
       <div
-        key={movie.id}
         className="relative z-20 flex flex-col items-start justify-center
-        gap-4 px-6 md:px-16 lg:px-36 h-full
-        transition-all duration-700 ease-in-out
-        animate-fadeSlide"
+        gap-4 px-6 md:px-16 lg:px-36 h-full"
       >
+
         {/* LOGO */}
-        <img
-          src={logoSrc}
-          alt="Anime Logo"
-          className="h-24 md:h-32 mb-4 select-none"
-        />
+        {movie.logo && (
+          <img
+            src={movie.logo}
+            alt="logo"
+            className="h-24 md:h-32 mb-4"
+          />
+        )}
 
         {/* TITLE */}
-        <h1 className="text-5xl md:text-[70px] md:leading-tight font-semibold">
+        <h1 className="text-5xl md:text-[70px] font-semibold">
           {movie.title}
         </h1>
 
         {/* META */}
         <div className="flex flex-wrap items-center gap-4 text-gray-300 mt-3">
-          <span>{movie.genres.map((g) => g.name).join(" | ")}</span>
+
+          <span>{movie.genres?.join(" | ")}</span>
 
           <div className="flex items-center gap-1">
             <CalendarIcon className="w-4 h-4" />
@@ -115,6 +148,7 @@ function HeroSection() {
             <ClockIcon className="w-4 h-4" />
             {movie.runtime}
           </div>
+
         </div>
 
         {/* DESCRIPTION */}
@@ -122,24 +156,26 @@ function HeroSection() {
           {movie.overview}
         </p>
 
-        {/* ACTIONS */}
+        {/* BUTTONS */}
         <div className="flex gap-4 mt-6">
+
           <button
             onClick={() => navigate("/movies")}
             className="flex items-center gap-1 px-6 py-3 text-sm
-            bg-primary-dull rounded-full font-medium hover:opacity-90 transition"
+            bg-orange-500 rounded-full font-medium"
           >
             Explore Movies
             <ArrowRight className="w-5 h-5" />
           </button>
 
           <button
-            onClick={() => navigate(`/movies/${movie.id}`)}
+            onClick={() => navigate(`/movies/${movie._id}`)}
             className="px-6 py-3 text-sm border border-white/30
-            rounded-full hover:bg-white/10 transition"
+            rounded-full hover:bg-white/10"
           >
             Watch Now
           </button>
+
         </div>
       </div>
     </div>

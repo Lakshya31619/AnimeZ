@@ -8,6 +8,8 @@ import { functions, inngest } from './inngest/index.js';
 import showRouter from './routes/showRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import muxRouter from "./routes/muxRoutes.js"; 
+import adminRouter from "./routes/adminRoutes.js";
+import characterRoutes from "./routes/characterRoutes.js";
 
 const app = express();
 const PORT = 3000;
@@ -26,5 +28,7 @@ app.use('/api/inngest', serve({client: inngest, functions}));
 app.use('/api/show', showRouter);
 app.use('/api/user', userRouter);
 app.use("/api/mux", muxRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/character", characterRoutes);
 
 app.listen(PORT, ()=> console.log(`Server started at http://localhost:${PORT}`));

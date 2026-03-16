@@ -1,25 +1,47 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  _id: { type: String, required: true }, // Clerk userId
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  image: { type: String, required: true },
+
+  clerkId: {
+    type: String,
+    required: true,
+    unique: true
+  },
+
+  name: {
+    type: String,
+    required: true
+  },
+
+  email: {
+    type: String,
+    required: true
+  },
+
+  image: {
+    type: String
+  },
+
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user"
+  },
 
   favorites: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Movie"
     }
   ],
 
   watchlist: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Movie"
     }
   ]
-});
 
-const User = mongoose.model("User", userSchema);
-export default User;
+}, { timestamps: true });
+
+export default mongoose.model("User", userSchema);

@@ -1,61 +1,100 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
-import Loading from "../components/Loading";
 import axios from "axios";
 
+import MovieCard from "../components/MovieCard";
+import Loading from "../components/Loading";
+
 function Search() {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("q");
+
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // get query from URL
+  const query = new URLSearchParams(location.search).get("q") || "";
 
   useEffect(() => {
+
+    if (!query.trim()) {
+      setMovies([]);
+      return;
+    }
+
     const fetchMovies = async () => {
       try {
+
         setLoading(true);
 
-        const baseURL = import.meta.env.VITE_BASE_URL;
+        const { data } = await axios.get("/api/show/search", {
+          params: { q: query }
+        });
 
-        console.log("BASE URL:", baseURL);
+        if (data.success) {
+          setMovies(data.movies);
+        } else {
+          setMovies([]);
+        }
 
-        const fullURL = `${baseURL}/api/show/search?q=${query}`;
-
-        console.log("Full URL:", fullURL);
-
-        const { data } = await axios.get(fullURL);
-
-        setMovies(data);
       } catch (error) {
-        console.log("Search error:", error);
+
+        console.error("Search error:", error);
+        setMovies([]);
+
       } finally {
+
         setLoading(false);
+
       }
     };
 
-    if (query) fetchMovies();
+    fetchMovies();
+
   }, [query]);
+
+
+
+  // ================= LOADING =================
 
   if (loading) return <Loading />;
 
+
+
+  // ================= UI =================
+
   return (
     <div className="px-6 md:px-16 lg:px-36 pt-32 min-h-screen">
-      <h1 className="text-xl font-semibold mb-6">
+
+      <h1 className="text-xl md:text-2xl font-semibold mb-6">
         Search Results for "{query}"
       </h1>
 
+
       {movies.length === 0 ? (
-        <p className="text-gray-400">No movies found.</p>
+
+        <p className="text-gray-400">
+          No movies found.
+        </p>
+
       ) : (
+
         <div className="flex flex-wrap gap-6">
+
           {movies.map((movie) => (
-            <MovieCard key={movie._id} movie={movie} />
+            <MovieCard
+              key={movie._id}
+              movie={movie}
+            />
           ))}
+
         </div>
+
       )}
+
     </div>
   );
+
 }
 
 export default Search;

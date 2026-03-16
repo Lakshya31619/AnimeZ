@@ -41,7 +41,7 @@ function MyWatchList() {
 
             <button
               onClick={() => removeFromWatchList(movie._id)}
-              className="text-red-500 text-sm mt-4 md:mt-0"
+              className="text-red-500 text-sm mt-4 md:mt-0 cursor-pointer"
             >
               Remove
             </button>
