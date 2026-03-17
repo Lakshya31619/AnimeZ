@@ -6,6 +6,8 @@ import Title from "../../components/admin/Title";
 import LogoSelector from "../../components/admin/LogoSelector";
 import CastSelector from "../../components/admin/CastSelector";
 
+const baseURL = import.meta.env.VITE_BASE_URL;
+
 function AddMovies() {
 
   const { getToken } = useAuth();
@@ -56,7 +58,7 @@ function AddMovies() {
       };
 
       const res = await axios.post(
-        "http://localhost:3000/api/show/add",
+        `${baseURL}/api/show/add`,
         payload,
         {
           headers: {

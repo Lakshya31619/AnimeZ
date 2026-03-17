@@ -3,7 +3,8 @@ import axios from "axios";
 
 const Characters = () => {
 
-    const API = "http://localhost:3000/api/character";
+    const baseURL = import.meta.env.VITE_BASE_URL;
+    const API = `${baseURL}/api/character`;
 
     const [characters, setCharacters] = useState([]);
     const [search, setSearch] = useState("");
