@@ -24,18 +24,16 @@ function Navbar() {
         <img className="w-36" src="/siteLogo.png" alt="Logo" />
       </Link>
 
-      <div className="hidden md:flex flex-1 justify-center">
-        <div className="flex items-center bg-white/10 px-4 py-2 rounded-full w-96">
-          <SearchIcon className="w-5 h-5 mr-2 text-gray-300" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={handleSearch}
-            placeholder="Search movies..."
-            className="bg-transparent outline-none w-full text-white placeholder-gray-400"
-          />
-        </div>
+      <div className="flex items-center bg-white/10 px-4 py-2 rounded-full w-96 border border-gray-600 focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-500 transition duration-200">
+        <SearchIcon className="w-5 h-5 mr-2 text-gray-300" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={handleSearch}
+          placeholder="Search movies..."
+          className="bg-transparent outline-none w-full text-white placeholder-gray-400"
+        />
       </div>
 
       <div className="flex-1 flex justify-end items-center gap-6">
