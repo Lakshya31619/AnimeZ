@@ -10,7 +10,7 @@ import MovieFilter from "../../components/MovieFilter";
 function Dashboard() {
 
   const { getToken } = useAuth();
-  const baseURL = import.meta.env.VITE_BASE_URL; // ✅ added
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const [dashboardData, setDashboardData] = useState({
     activeMovies: [],
@@ -23,6 +23,8 @@ function Dashboard() {
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("year-desc");
+
+  const [castSearch, setCastSearch] = useState("");
 
   const genreOptions = [
     "Action",
@@ -54,7 +56,7 @@ function Dashboard() {
       const token = await getToken();
 
       const res = await axios.get(
-        `${baseURL}/api/admin/dashboard`, // ✅ updated
+        `${baseURL}/api/admin/dashboard`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -78,9 +80,7 @@ function Dashboard() {
   // ================= FETCH CHARACTERS =================
   const fetchCharacters = async () => {
     try {
-      const res = await axios.get(
-        `${baseURL}/api/character/all` // ✅ updated
-      );
+      const res = await axios.get(`${baseURL}/api/character/all`);
 
       const chars =
         res.data.characters ||
@@ -106,7 +106,7 @@ function Dashboard() {
       const token = await getToken();
 
       await axios.delete(
-        `${baseURL}/api/show/delete/${id}`, // ✅ updated
+        `${baseURL}/api/show/delete/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -135,7 +135,7 @@ function Dashboard() {
       };
 
       await axios.put(
-        `${baseURL}/api/show/update/${editingMovie._id}`, // ✅ updated
+        `${baseURL}/api/show/update/${editingMovie._id}`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -147,6 +147,28 @@ function Dashboard() {
 
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // ================= CAST TOGGLE =================
+  const toggleCast = (character) => {
+
+    const exists = (editingMovie.casts || []).find(
+      (c) => (c._id || c) === character._id
+    );
+
+    if (exists) {
+      setEditingMovie({
+        ...editingMovie,
+        casts: editingMovie.casts.filter(
+          (c) => (c._id || c) !== character._id
+        )
+      });
+    } else {
+      setEditingMovie({
+        ...editingMovie,
+        casts: [...(editingMovie.casts || []), character]
+      });
     }
   };
 
@@ -307,6 +329,53 @@ function Dashboard() {
               }
               className="w-full bg-black/40 border p-3 rounded-md mb-4"
             />
+
+            {/* ===== CAST SELECTOR ADDED ===== */}
+            <p className="text-lg font-medium mt-4 mb-2">Edit Cast</p>
+
+            <input
+              type="text"
+              placeholder="Search characters..."
+              value={castSearch}
+              onChange={(e) => setCastSearch(e.target.value)}
+              className="w-full bg-black/40 border p-3 rounded-md mb-4"
+            />
+
+            <div className="grid grid-cols-4 gap-4 mb-4">
+              {characters
+                .filter((char) =>
+                  char.name.toLowerCase().includes(castSearch.toLowerCase())
+                )
+                .slice(0, 12)
+                .map((character) => {
+
+                  const selected = (editingMovie.casts || []).find(
+                    (c) => (c._id || c) === character._id
+                  );
+
+                  return (
+                    <div
+                      key={character._id}
+                      onClick={() => toggleCast(character)}
+                      className={`cursor-pointer text-center p-2 rounded-lg border transition
+                      ${
+                        selected
+                          ? "border-primary bg-primary/20"
+                          : "border-gray-700"
+                      }`}
+                    >
+                      <img
+                        src={character.profileLink || character.image}
+                        alt={character.name}
+                        className="h-20 w-20 mx-auto object-cover rounded"
+                      />
+                      <p className="text-sm mt-1 text-white">
+                        {character.name}
+                      </p>
+                    </div>
+                  );
+                })}
+            </div>
 
             {/* GENRES */}
             <div className="flex flex-wrap gap-2 mb-4">

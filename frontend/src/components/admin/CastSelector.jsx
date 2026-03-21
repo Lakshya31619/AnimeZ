@@ -6,7 +6,7 @@ function CastSelector({ selectedCast, setSelectedCast, limit = 10 }) {
   const [characters, setCharacters] = useState([]);
   const [search, setSearch] = useState("");
 
-  const API = "http://localhost:3000/api/character/all";
+  const API = `${import.meta.env.VITE_BASE_URL}/api/character/all`;
 
   useEffect(() => {
     fetchCharacters();
