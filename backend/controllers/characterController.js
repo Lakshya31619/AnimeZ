@@ -267,7 +267,51 @@ export const addMoment = async (req, res) => {
 
 };
 
+// UPDATE MOMENT
+export const updateMoment = async (req, res) => {
+  try {
+    const { characterId, momentId } = req.params;
+    const { title, description, show, episode, video } = req.body;
 
+    const character = await Character.findById(characterId);
+
+    if (!character) {
+      return res.json({
+        success: false,
+        message: "Character not found",
+      });
+    }
+
+    const moment = character.moments.id(momentId);
+
+    if (!moment) {
+      return res.json({
+        success: false,
+        message: "Moment not found",
+      });
+    }
+
+    // update fields
+    moment.title = title;
+    moment.description = description;
+    moment.show = show;
+    moment.episode = episode;
+    moment.video = video;
+
+    await character.save();
+
+    res.json({
+      success: true,
+      message: "Moment updated",
+    });
+
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 // DELETE MOMENT
 export const deleteMoment = async (req, res) => {

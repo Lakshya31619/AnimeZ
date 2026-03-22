@@ -7,6 +7,7 @@ import {
   addForm,
   deleteForm,
   addMoment,
+  updateMoment,
   deleteMoment
 } from "../controllers/characterController.js";
 
@@ -25,6 +26,7 @@ router.delete("/:characterId/form/:formId", deleteForm);
 
 // MOMENTS
 router.post("/:characterId/moment", addMoment);
+router.put("/:characterId/moment/:momentId", updateMoment);
 router.delete("/:characterId/moment/:momentId", deleteMoment);
 
 export default router;
