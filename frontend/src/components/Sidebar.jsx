@@ -29,6 +29,7 @@ function Sidebar() {
 
           {/* ✅ NEW */}
           <Link to="/moments" onClick={() => setIsOpen(false)}>Moments</Link>
+          <Link to="/shows" onClick={() => setIsOpen(false)}>Shows</Link>
         </div>
       </aside>
     </>

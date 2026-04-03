@@ -2,7 +2,8 @@ import {
   LayoutDashboardIcon,
   PlusSquareIcon,
   UserIcon,
-  FilmIcon
+  FilmIcon,
+  TvIcon
 } from "lucide-react";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -15,7 +16,8 @@ function AdminSidebar() {
     { name: "Dashboard", path: "/admin", icon: LayoutDashboardIcon },
     { name: "Add Movies", path: "/admin/add-movies", icon: PlusSquareIcon },
     { name: "Characters", path: "/admin/characters", icon: UserIcon },
-    { name: "Add Moments", path: "/admin/add-moments", icon: FilmIcon }
+    { name: "Add Moments", path: "/admin/add-moments", icon: FilmIcon },
+    { name: "Add Episodes", path: "/admin/add-episodes", icon: TvIcon }
   ];
 
   return (

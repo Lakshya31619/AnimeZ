@@ -22,6 +22,10 @@ import AddMoments from "./pages/admin/AddMoments";
 import Moments from "./pages/Moments";
 import CharacterMoments from "./pages/CharacterMoments";
 import CharacterDetails from "./pages/CharacterDetails";
+import Shows from "./pages/Shows";
+import SeriesEpisodes from "./pages/SeriesEpisodes";
+import EpisodePlayer from "./pages/EpisodePlayer";
+import AddEpisodes from "./pages/admin/AddEpisodes";
 
 import { useAppContext } from "./context/AppContext";
 
@@ -53,7 +57,9 @@ function App() {
         <Route path="/moments" element={<Moments />} />
         <Route path="/moments/:character" element={<CharacterMoments />} />
         <Route path="/character/:character" element={<CharacterDetails />} />
-        
+        <Route path="/shows" element={<Shows />} />
+        <Route path="/shows/:series" element={<SeriesEpisodes />} />
+        <Route path="/shows/:series/episode/:id" element={<EpisodePlayer />} />
 
         {/* ADMIN ROUTES */}
         <Route
@@ -82,6 +88,7 @@ function App() {
           <Route path="add-movies" element={<AddMovies />} />
           <Route path="characters" element={<Characters />} />
           <Route path="add-moments" element={<AddMoments />} />
+          <Route path="add-episodes" element={<AddEpisodes />} />
 
         </Route>
       </Routes>

@@ -10,6 +10,7 @@ import userRouter from './routes/userRoutes.js';
 import muxRouter from "./routes/muxRoutes.js"; 
 import adminRouter from "./routes/adminRoutes.js";
 import characterRoutes from "./routes/characterRoutes.js";
+import episodeRouter from "./routes/episodeRoutes.js";
 
 const app = express();
 const PORT = 3000;
@@ -30,5 +31,6 @@ app.use('/api/user', userRouter);
 app.use("/api/mux", muxRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/character", characterRoutes);
+app.use("/api/episodes", episodeRouter);
 
 app.listen(PORT, ()=> console.log(`Server started at http://localhost:${PORT}`));
