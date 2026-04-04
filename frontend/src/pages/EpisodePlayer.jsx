@@ -34,13 +34,11 @@ function EpisodePlayer() {
   const meta          = SERIES_META[decodedSeries] || { accent: "#e8662a" };
   const baseURL       = import.meta.env.VITE_BASE_URL;
 
-  const [episode,     setEpisode]     = useState(null);
-  const [loading,     setLoading]     = useState(true);
-  const [allEpisodes, setAllEpisodes] = useState([]);
-  const [showSkip,    setShowSkip]    = useState(false);
-  const [skipCountdown, setSkipCountdown] = useState(90);
+  const [episode,      setEpisode]      = useState(null);
+  const [loading,      setLoading]      = useState(true);
+  const [allEpisodes,  setAllEpisodes]  = useState([]);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Fetch episode data
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -62,53 +60,36 @@ function EpisodePlayer() {
     fetchData();
   }, [id, decodedSeries]);
 
-  // Auto-scroll active ep into sidebar view
   useEffect(() => {
     activeRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }, [id, allEpisodes]);
 
-  // Skip intro: show button after 5s, countdown from 90s
+  // Track fullscreen state changes (e.g. user presses Escape)
   useEffect(() => {
-    setShowSkip(false);
-    setSkipCountdown(90);
-
-    // Show skip button after 5s
-    const showTimer = setTimeout(() => setShowSkip(true), 5000);
-
-    // Countdown tick every second
-    let count = 90;
-    const tick = setInterval(() => {
-      count -= 1;
-      setSkipCountdown(count);
-      if (count <= 0) {
-        clearInterval(tick);
-        setShowSkip(false);
-      }
-    }, 1000);
-
-    return () => {
-      clearTimeout(showTimer);
-      clearInterval(tick);
+    const onChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
     };
-  }, [id]);
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
 
-  // Skip intro: reload iframe with t=90 param to seek past intro
-  const handleSkipIntro = () => {
-    setShowSkip(false);
-    if (!iframeRef.current || !episode) return;
-    // Append #t=90 or ?t=90 — works with most embed players
-    const base = episode.episode_link.split("#")[0].split("?t=")[0];
-    iframeRef.current.src = base + (base.includes("?") ? "&t=90" : "?t=90");
-  };
-
-  // Fullscreen the iframe element itself
   const handleFullscreen = () => {
     const el = iframeRef.current;
     if (!el) return;
-    if      (el.requestFullscreen)       el.requestFullscreen();
-    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
-    else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      if      (el.requestFullscreen)       el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+      else if (el.msRequestFullscreen)     el.msRequestFullscreen();
+    }
+  };
+
+  const handleExitFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
   };
 
   if (loading)  return <Loading />;
@@ -196,10 +177,9 @@ function EpisodePlayer() {
         {/* ══ PLAYER COLUMN ══ */}
         <div className="flex-1 flex flex-col gap-3 min-w-0">
 
-          {/* Player box */}
+          {/* Player */}
           <div className="relative rounded-2xl overflow-hidden border border-gray-800 shadow-2xl bg-black w-full"
             style={{ maxWidth: "820px", aspectRatio: "16/9" }}>
-
             <iframe
               ref={iframeRef}
               key={id}
@@ -212,67 +192,64 @@ function EpisodePlayer() {
               webkitallowfullscreen="true"
               mozallowfullscreen="true"
             />
-
-            {/* Skip Intro button — inside player, bottom-right */}
-            {showSkip && (
-              <button
-                onClick={handleSkipIntro}
-                className="absolute bottom-4 right-4 z-20 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all hover:scale-105"
-                style={{
-                  background: "rgba(0,0,0,0.75)",
-                  color: meta.accent,
-                  border: `1.5px solid ${meta.accent}`,
-                  backdropFilter: "blur(6px)"
-                }}
-              >
-                Skip Intro
-                {/* Countdown ring */}
-                <span className="text-xs opacity-60">({skipCountdown}s)</span>
-              </button>
-            )}
-
-            {/* Fullscreen button — inside player, top-right */}
-            <button
-              onClick={handleFullscreen}
-              title="Fullscreen"
-              className="absolute top-3 right-3 z-20 p-2 rounded-lg transition-all hover:scale-110"
-              style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(6px)" }}
-            >
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-              </svg>
-            </button>
           </div>
 
-          {/* ── Prev / Next ── */}
-          <div className="flex items-center justify-between gap-3" style={{ maxWidth: "820px" }}>
+          {/* ── Controls row ── */}
+          <div className="flex items-center gap-3" style={{ maxWidth: "820px" }}>
 
             {/* Prev */}
             {prevEp ? (
               <button
                 onClick={() => navigate(`/shows/${series}/episode/${prevEp._id}`)}
-                className="group flex items-center gap-2.5 px-5 py-2.5 rounded-xl border border-gray-700 bg-white/5 hover:bg-white/10 hover:border-gray-500 transition-all text-sm font-medium text-gray-300 hover:text-white"
+                className="group flex items-center gap-2.5 px-5 py-2.5 rounded-xl border border-gray-700 bg-white/5 hover:bg-white/10 hover:border-gray-500 transition-all text-sm font-medium text-gray-300 hover:text-white shrink-0"
               >
                 <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
                 </svg>
-                <span className="hidden sm:block truncate max-w-[160px]">
+                <span className="hidden sm:block truncate max-w-[150px]">
                   EP {prevEp.episode_number}: {prevEp.title}
                 </span>
                 <span className="sm:hidden">Previous</span>
               </button>
             ) : <div />}
 
+            {/* Fullscreen / Exit Fullscreen */}
+            {!isFullscreen ? (
+              <button
+                onClick={handleFullscreen}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-700 bg-white/5 hover:bg-white/10 hover:border-gray-500 transition-all text-sm text-gray-300 hover:text-white shrink-0"
+                title="Enter fullscreen"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                </svg>
+                <span className="hidden sm:inline">Fullscreen</span>
+              </button>
+            ) : (
+              <button
+                onClick={handleExitFullscreen}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all text-sm font-medium shrink-0"
+                style={{ background: `${meta.accent}20`, borderColor: meta.accent, color: meta.accent }}
+                title="Exit fullscreen"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M9 9V4m0 0H4m5 0L3 10m12-1V4m0 0h5m-5 0l6 6M9 15v5m0 0H4m5 0l-6-6m12 6v-5m0 5h5m-5 0l6-6"/>
+                </svg>
+                <span className="hidden sm:inline">Exit Fullscreen</span>
+              </button>
+            )}
+
             {/* Next */}
             {nextEp ? (
               <button
                 onClick={() => navigate(`/shows/${series}/episode/${nextEp._id}`)}
-                className="group flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm text-white transition-all hover:brightness-110 hover:scale-[1.02] ml-auto"
-                style={{ background: `linear-gradient(135deg, ${meta.accent}, ${meta.accent}cc)`, boxShadow: `0 4px 18px ${meta.accent}55` }}
+                className="group flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-semibold text-sm text-white transition-all hover:brightness-110 hover:scale-[1.02] ml-auto shrink-0"
+                style={{ background: `linear-gradient(135deg, ${meta.accent}, ${meta.accent}cc)`, boxShadow: `0 4px 18px ${meta.accent}44` }}
               >
-                <span className="hidden sm:block truncate max-w-[160px]">
+                <span className="hidden sm:block truncate max-w-[150px]">
                   EP {nextEp.episode_number}: {nextEp.title}
                 </span>
                 <span className="sm:hidden">Next</span>
