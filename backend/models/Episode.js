@@ -5,7 +5,7 @@ const episodeSchema = new mongoose.Schema(
     series: {
       type: String,
       required: true,
-      enum: ["Dragon Ball", "Dragon Ball Z", "Dragon Ball GT", "Dragon Ball Daima"]
+      enum: ["Dragon Ball", "Dragon Ball Z", "Dragon Ball GT","Dragon Ball Super", "Dragon Ball Daima"]
     },
     title: { type: String, required: true },
     episode_number: { type: Number, required: true },
