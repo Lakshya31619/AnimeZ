@@ -40,6 +40,18 @@ const SERIES = [
     border: "border-blue-600/30"
   },
   {
+    id: "Dragon Ball Super",
+    label: "Dragon Ball Super",
+    logo: "/animeLogoSuper.png",
+    year: "2015",
+    episodes: "131 Episodes",
+    description:
+      "Goku and his friends defend Earth from increasingly powerful extraterrestrial villains.",
+    gradient: "from-green-900/40 to-green-900/20",
+    accent: "#0e840c",
+    border: "border-green-600/30"
+  },
+  {
     id: "Dragon Ball Daima",
     label: "Dragon Ball Daima",
     logo: "/animeLogoDaima.png",
