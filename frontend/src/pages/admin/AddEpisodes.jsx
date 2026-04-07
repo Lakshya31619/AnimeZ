@@ -10,6 +10,7 @@ const SERIES_LIST = [
   "Dragon Ball",
   "Dragon Ball Z",
   "Dragon Ball GT",
+  "Dragon Ball Super",
   "Dragon Ball Daima"
 ];
 
