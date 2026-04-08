@@ -5,7 +5,7 @@ const episodeSchema = new mongoose.Schema(
     series: {
       type: String,
       required: true,
-      enum: ["Dragon Ball", "Dragon Ball Z", "Dragon Ball GT","Dragon Ball Super", "Dragon Ball Daima"]
+      enum: ["Dragon Ball", "Dragon Ball Z", "Dragon Ball GT", "Dragon Ball Super", "Dragon Ball Daima"]
     },
     title: { type: String, required: true },
     episode_number: { type: Number, required: true },
@@ -18,6 +18,10 @@ const episodeSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Indexes for faster queries
+episodeSchema.index({ series: 1, episode_number: 1 });
+episodeSchema.index({ series: 1 });
 
 const Episode = mongoose.model("Episode", episodeSchema);
 export default Episode;

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const movieSchema = new mongoose.Schema(
 {
   title: { type: String, required: true },
@@ -17,5 +18,10 @@ const movieSchema = new mongoose.Schema(
 },
 { timestamps: true }
 );
+
+// Indexes for faster queries
+movieSchema.index({ createdAt: -1 });
+movieSchema.index({ title: 1 });
+
 const Movie = mongoose.model("Movie", movieSchema);
 export default Movie;

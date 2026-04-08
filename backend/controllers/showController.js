@@ -64,6 +64,9 @@ export const getAllShows = async (req, res) => {
 
     const movies = await Movie.find().sort({ createdAt: -1 });
 
+    // Cache at Vercel's edge for 5 minutes, serve stale for 10 more while revalidating
+    res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+
     res.json({
       success: true,
       movies
@@ -89,7 +92,6 @@ export const updateShow = async (req, res) => {
 
     const { id } = req.params;
 
-    // 🔴 FIX: prevent undefined ObjectId crash
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
@@ -150,7 +152,6 @@ export const deleteShow = async (req, res) => {
 
     const { id } = req.params;
 
-    // 🔴 Prevent invalid id crash
     if (!id || !mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({
         success: false,
@@ -202,8 +203,11 @@ export const searchShows = async (req, res) => {
     const movies = await Movie.find({
       title: { $regex: query, $options: "i" }
     })
-    .limit(20) 
+    .limit(20)
     .sort({ createdAt: -1 });
+
+    // Search results can be cached briefly
+    res.set('Cache-Control', 'public, max-age=60');
 
     res.json({
       success: true,
