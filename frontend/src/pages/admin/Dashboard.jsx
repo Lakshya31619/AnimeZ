@@ -1,4 +1,4 @@
-import { PlayCircleIcon, StarIcon, UserIcon } from "lucide-react";
+import { PlayCircleIcon, StarIcon, UserIcon, MessageSquareIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
@@ -14,7 +14,8 @@ function Dashboard() {
 
   const [dashboardData, setDashboardData] = useState({
     activeMovies: [],
-    totalUser: 0
+    totalUser: 0,
+    totalComments: 0
   });
 
   const [editingMovie, setEditingMovie] = useState(null);
@@ -47,6 +48,11 @@ function Dashboard() {
       title: "Total Users",
       value: dashboardData.totalUser || "0",
       icon: UserIcon
+    },
+    {
+      title: "Total Comments",
+      value: dashboardData.totalComments || "0",
+      icon: MessageSquareIcon
     }
   ];
 
@@ -65,7 +71,8 @@ function Dashboard() {
       if (res.data.success) {
         setDashboardData({
           activeMovies: res.data.activeMovies,
-          totalUser: res.data.totalUser
+          totalUser: res.data.totalUser,
+          totalComments: res.data.totalComments || 0
         });
       }
 

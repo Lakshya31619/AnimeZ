@@ -4,6 +4,7 @@ import axios from "axios";
 
 import BlurCircle from "../components/BlurCircle";
 import Loading from "../components/Loading";
+import CommentSection from "../components/CommentSection";
 
 import {
 HeartIcon,
@@ -265,6 +266,12 @@ return (
       className="rounded-xl max-w-6xl w-full"
     ></iframe>
 
+  </div>
+
+  {/* COMMENTS */}
+
+  <div className="max-w-6xl mx-auto mt-10 mb-16 px-2">
+    <CommentSection contentId={id} contentType="movie" accent="#e8662a" />
   </div>
 
   {/* CHARACTER MODAL */}

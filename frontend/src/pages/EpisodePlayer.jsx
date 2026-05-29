@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import BlurCircle from "../components/BlurCircle";
 import Loading from "../components/Loading";
+import CommentSection from "../components/CommentSection";
 
 const SERIES_META = {
   "Dragon Ball":       { accent: "#f59e0b", logo: "/animeLogoClassic.png" },
@@ -300,7 +301,21 @@ function EpisodePlayer() {
               ))}
             </div>
           )}
+
+          {/* ── Mobile comment section ── */}
+          <div className="lg:hidden mt-4 pb-4">
+            <CommentSection contentId={id} contentType="episode" accent={meta.accent} />
+          </div>
         </div>
+
+        {/* ══ RIGHT SIDEBAR — Comments (desktop only) ══ */}
+        <aside className="hidden lg:flex flex-col w-80 xl:w-96 shrink-0"
+          style={{ maxHeight: "calc(100vh - 180px)" }}>
+          <div className="overflow-y-auto scrollbar-thin pr-1 h-full">
+            <CommentSection contentId={id} contentType="episode" accent={meta.accent} />
+          </div>
+        </aside>
+
       </div>
     </div>
   );

@@ -26,6 +26,7 @@ import Shows from "./pages/Shows";
 import SeriesEpisodes from "./pages/SeriesEpisodes";
 import EpisodePlayer from "./pages/EpisodePlayer";
 import AddEpisodes from "./pages/admin/AddEpisodes";
+import ManageComments from "./pages/admin/ManageComments";
 
 import { useAppContext } from "./context/AppContext";
 
@@ -89,6 +90,7 @@ function App() {
           <Route path="characters" element={<Characters />} />
           <Route path="add-moments" element={<AddMoments />} />
           <Route path="add-episodes" element={<AddEpisodes />} />
+          <Route path="comments" element={<ManageComments />} />
 
         </Route>
       </Routes>
