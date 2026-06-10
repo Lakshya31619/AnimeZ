@@ -27,6 +27,7 @@ import SeriesEpisodes from "./pages/SeriesEpisodes";
 import EpisodePlayer from "./pages/EpisodePlayer";
 import AddEpisodes from "./pages/admin/AddEpisodes";
 import ManageComments from "./pages/admin/ManageComments";
+import Ballpedia from "./pages/Ballpedia";
 
 import { useAppContext } from "./context/AppContext";
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/shows" element={<Shows />} />
         <Route path="/shows/:series" element={<SeriesEpisodes />} />
         <Route path="/shows/:series/episode/:id" element={<EpisodePlayer />} />
+        <Route path="/ballpedia" element={<Ballpedia />} />
 
         {/* ADMIN ROUTES */}
         <Route

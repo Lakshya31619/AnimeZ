@@ -350,3 +350,103 @@ export const deleteMoment = async (req, res) => {
   }
 
 };
+
+// UPDATE FORM
+export const updateForm = async (req, res) => {
+  try {
+    const { characterId, formId } = req.params;
+    const { name, image, renderLink } = req.body;
+
+    const character = await Character.findById(characterId);
+    if (!character) {
+      return res.json({ success: false, message: "Character not found" });
+    }
+
+    const form = character.forms.id(formId);
+    if (!form) {
+      return res.json({ success: false, message: "Form not found" });
+    }
+
+    form.name = name;
+    form.image = image;
+    form.renderLink = renderLink;
+
+    await character.save();
+
+    res.json({ success: true, message: "Form updated" });
+
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// ── HISTORY ──────────────────────────────────────────────────────────────────
+
+// ADD HISTORY ENTRY
+export const addHistory = async (req, res) => {
+  try {
+    const { characterId } = req.params;
+    const { title, content, formId, order } = req.body;
+
+    const character = await Character.findById(characterId);
+    if (!character) {
+      return res.json({ success: false, message: "Character not found" });
+    }
+
+    character.history.push({ title, content, formId: formId || "", order: order || 0 });
+    await character.save();
+
+    res.json({ success: true, message: "History entry added" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// UPDATE HISTORY ENTRY
+export const updateHistory = async (req, res) => {
+  try {
+    const { characterId, historyId } = req.params;
+    const { title, content, formId, order } = req.body;
+
+    const character = await Character.findById(characterId);
+    if (!character) {
+      return res.json({ success: false, message: "Character not found" });
+    }
+
+    const entry = character.history.id(historyId);
+    if (!entry) {
+      return res.json({ success: false, message: "History entry not found" });
+    }
+
+    entry.title = title;
+    entry.content = content;
+    entry.formId = formId || "";
+    entry.order = order || 0;
+
+    await character.save();
+    res.json({ success: true, message: "History entry updated" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// DELETE HISTORY ENTRY
+export const deleteHistory = async (req, res) => {
+  try {
+    const { characterId, historyId } = req.params;
+
+    const character = await Character.findById(characterId);
+    if (!character) {
+      return res.json({ success: false, message: "Character not found" });
+    }
+
+    character.history = character.history.filter(
+      (h) => h._id.toString() !== historyId
+    );
+    await character.save();
+
+    res.json({ success: true, message: "History entry deleted" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};

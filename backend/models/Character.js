@@ -22,6 +22,14 @@ const momentSchema = new mongoose.Schema({
   video: String
 });
 
+// History = text-based story/lore entries (separate from video moments)
+const historySchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  formId: { type: String, default: "" },   // optional: ties this entry to a specific form
+  order: { type: Number, default: 0 }
+});
+
 const characterSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -35,7 +43,8 @@ const characterSchema = new mongoose.Schema({
     type: String
   },
   forms: [formSchema],
-  moments: [momentSchema]
+  moments: [momentSchema],
+  history: [historySchema]
 
 }, { timestamps: true });
 
