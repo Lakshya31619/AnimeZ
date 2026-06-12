@@ -46,7 +46,7 @@ const SERIES = [
     year: "2015",
     episodes: "131 Episodes",
     description:
-      "Goku and his friends defend Earth from increasingly powerful extraterrestrial villains.",
+      "Goku and his friends push beyond their limits as gods, universes, and powerful new rivals emerge.",
     gradient: "from-green-900/40 to-green-900/20",
     accent: "#0e840c",
     border: "border-green-600/30"
@@ -58,7 +58,7 @@ const SERIES = [
     year: "2024",
     episodes: "20 Episodes",
     description:
-      "A new chapter begins as Goku and his friends are mysteriously turned small and must unravel the secrets behind the transformation.",
+      "A new chapter begins as Goku and his friends are mysteriously turned small and must uncover the truth behind the transformation.",
     gradient: "from-purple-900/40 to-fuchsia-900/20",
     accent: "#a855f7",
     border: "border-purple-600/30"
@@ -69,7 +69,7 @@ function Shows() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen px-6 md:px-16 lg:px-40 xl:px-44 pt-36 pb-24 overflow-hidden">
+    <div className="relative min-h-screen px-6 md:px-16 lg:px-24 xl:px-32 pt-36 pb-24 overflow-hidden">
       <BlurCircle top="100px" left="-100px" />
       <BlurCircle bottom="100px" right="-50px" />
 
@@ -78,85 +78,86 @@ function Shows() {
         <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-2">
           Full Series
         </p>
+
         <h1 className="text-4xl md:text-5xl font-bold">
           Watch All Episodes
         </h1>
+
         <p className="text-gray-400 mt-3 max-w-xl text-sm leading-relaxed">
           Stream every episode from every Dragon Ball series — in one place.
           Pick a series to begin watching.
         </p>
       </div>
 
-      {/* Series Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
         {SERIES.map((series) => (
           <div
             key={series.id}
             onClick={() =>
               navigate(`/shows/${encodeURIComponent(series.id)}`)
             }
-            className={`group relative cursor-pointer rounded-2xl border ${series.border} bg-gradient-to-br ${series.gradient} hover:scale-[1.02] transition-all duration-300 overflow-hidden`}
+            className={`group relative h-[480px] cursor-pointer rounded-3xl overflow-hidden border ${series.border}
+            bg-gradient-to-b ${series.gradient}
+            hover:-translate-y-2 transition-all duration-300`}
           >
-            {/* Glow on hover */}
+            {/* Hover Glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl"
+              className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity"
               style={{ background: series.accent }}
             />
 
-            <div className="relative p-6 flex flex-col gap-4">
-              {/* Logo */}
+            {/* Logo */}
+            <div className="relative h-36 flex items-center justify-center px-6">
+              <div
+                className="absolute w-36 h-36 rounded-full blur-3xl opacity-20"
+                style={{ background: series.accent }}
+              />
+
               <img
                 src={series.logo}
                 alt={series.label}
-                className="h-12 object-contain object-left"
+                className="relative max-h-20 object-contain transition-transform duration-300 group-hover:scale-105"
               />
+            </div>
 
-              {/* Info */}
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span
-                    className="text-xs px-2 py-0.5 rounded-full font-medium"
-                    style={{
-                      background: `${series.accent}22`,
-                      color: series.accent,
-                      border: `1px solid ${series.accent}55`
-                    }}
-                  >
-                    {series.year}
-                  </span>
-                  <span className="text-xs text-gray-400">
-                    {series.episodes}
-                  </span>
-                </div>
-
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  {series.description}
-                </p>
-              </div>
-
-              {/* CTA */}
-              <div className="flex items-center gap-2 mt-2 group-hover:gap-3 transition-all">
+            {/* Content */}
+            <div className="flex flex-col h-[calc(100%-144px)] p-6 border-t border-white/10">
+              <div className="flex items-center justify-between mb-5">
                 <span
-                  className="text-sm font-semibold"
-                  style={{ color: series.accent }}
+                  className="text-xs px-3 py-1 rounded-full font-medium"
+                  style={{
+                    background: `${series.accent}22`,
+                    color: series.accent,
+                    border: `1px solid ${series.accent}55`
+                  }}
                 >
-                  Watch Now
+                  {series.year}
                 </span>
-                <svg
-                  className="w-4 h-4 transition-transform group-hover:translate-x-1"
-                  style={{ color: series.accent }}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+
+                <span className="text-xs text-gray-400">
+                  {series.episodes}
+                </span>
               </div>
+
+              <h2 className="text-2xl font-semibold mb-4">
+                {series.label}
+              </h2>
+
+              <p className="text-gray-400 text-sm leading-8 line-clamp-4">
+                {series.description}
+              </p>
+
+              <button
+                className="mt-auto w-full py-3 rounded-xl font-semibold transition-all duration-300"
+                style={{
+                  background: `${series.accent}22`,
+                  color: series.accent,
+                  border: `1px solid ${series.accent}55`
+                }}
+              >
+                Watch Series
+              </button>
             </div>
           </div>
         ))}
