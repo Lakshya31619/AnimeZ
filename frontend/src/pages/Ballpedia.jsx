@@ -26,6 +26,81 @@ const ANIM_CSS = `
   }
 `;
 
+function MagnifierImage({ src, alt, animKey, slideDir, onError }) {
+  const [lens, setLens] = useState(null); // { x, y } relative to image
+  const imgRef = React.useRef(null);
+  const ZOOM = 2.5;
+  const LENS_SIZE = 120;
+
+  const handleMouseMove = (e) => {
+    const rect = imgRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (x < 0 || y < 0 || x > rect.width || y > rect.height) {
+      setLens(null);
+      return;
+    }
+    setLens({ x, y, w: rect.width, h: rect.height });
+  };
+
+  return (
+    <div
+      className="relative flex items-center justify-center"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setLens(null)}
+      style={{ cursor: lens ? "crosshair" : "default" }}
+    >
+      <img
+        ref={imgRef}
+        key={animKey}
+        src={src}
+        alt={alt}
+        className="max-w-full max-h-72 object-contain drop-shadow-2xl select-none"
+        style={{
+          animation: `${slideDir === "left" ? "formSlideLeft" : "formSlideRight"} 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards`,
+        }}
+        onError={onError}
+        draggable={false}
+      />
+      {lens && (
+        <div
+          style={{
+            position: "absolute",
+            left: lens.x - LENS_SIZE / 2,
+            top: lens.y - LENS_SIZE / 2,
+            width: LENS_SIZE,
+            height: LENS_SIZE,
+            borderRadius: "50%",
+            border: "2px solid rgba(255,255,255,0.6)",
+            boxShadow: "0 0 0 1px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.5)",
+            overflow: "hidden",
+            pointerEvents: "none",
+            zIndex: 50,
+            backdropFilter: "none",
+          }}
+        >
+          <img
+            src={src}
+            alt=""
+            draggable={false}
+            style={{
+              width: lens.w * ZOOM,
+              height: lens.h * ZOOM,
+              maxWidth: "none",
+              objectFit: "contain",
+              position: "absolute",
+              left: -(lens.x * ZOOM - LENS_SIZE / 2),
+              top: -(lens.y * ZOOM - LENS_SIZE / 2),
+              pointerEvents: "none",
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AuraParticles({ color }) {
   const particles = Array.from({ length: 10 }, (_, i) => {
     const angle = (Math.PI * 2 * i) / 10;
@@ -173,9 +248,9 @@ function Ballpedia() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 md:px-10 lg:px-16 text-white">
+    <div className="min-h-screen pt-24 pb-12 px-4 md:px-10 lg:px-16 text-white relative overflow-x-hidden">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-8 relative z-10">
         <h1 className="text-4xl md:text-5xl font-bold">
           Ball<span className="text-primary">pedia</span>
         </h1>
@@ -184,7 +259,7 @@ function Ballpedia() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col lg:flex-row gap-6 relative z-10">
         {/* LEFT Side: Character List Panel */}
         <aside className="lg:w-72 shrink-0">
           <input
@@ -267,10 +342,43 @@ function Ballpedia() {
 
             <div className="flex flex-col md:flex-row gap-6">
               {/* Core Render Showcase Box */}
-              <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col items-center [perspective:1000px]">
+              <div className="flex-1 border border-white/10 rounded-2xl p-6 flex flex-col items-center [perspective:1000px] relative overflow-hidden"
+                style={{ background: "rgba(255,255,255,0.04)" }}
+              >
+                {/* Animated character background */}
+                {currentForm && (
+                  <div
+                    key={`panel-${selected._id}-${animKey}`}
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ zIndex: 0 }}
+                  >
+                    {/* The big blurred GIF */}
+                    <img
+                      src={currentForm.image}
+                      alt=""
+                      aria-hidden="true"
+                      className="w-full h-full object-cover"
+                      style={{
+                        filter: "blur(8px) saturate(1.6)",
+                        transform: "scale(1.1)",
+                        opacity: 0.55,
+                        transition: "opacity 0.6s ease",
+                        objectPosition: "center top",
+                      }}
+                    />
+                    {/* Subtle dark overlay — just enough for readability, not a blackout */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%)",
+                      }}
+                    />
+                  </div>
+                )}
                 {/* Pagination Arrow Keys */}
                 {allForms.length > 1 && (
-                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-400 z-10">
+                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-400 z-10 relative">
                     <button
                       onClick={prevForm}
                       className="p-2 rounded-full bg-white/10 hover:bg-primary/30 transition"
@@ -293,7 +401,7 @@ function Ballpedia() {
 
                 {/* 3D Flip Canvas */}
                 <div
-                  className={`w-full h-96 relative transition-transform duration-700 [transform-style:preserve-3d] ${
+                  className={`w-full h-96 relative transition-transform duration-700 [transform-style:preserve-3d] z-10 ${
                     activeTab === "history" ? "[transform:rotateY(180deg)]" : ""
                   }`}
                 >
@@ -314,17 +422,12 @@ function Ballpedia() {
                     )}
                     {showParticles && <AuraParticles color={particleColor} />}
 
-                    {/* Character Dynamic Visual Image */}
-                    <img
-                      key={animKey}
+                    {/* Character Dynamic Visual Image with Magnifier */}
+                    <MagnifierImage
                       src={currentForm?.renderLink || currentForm?.image}
                       alt={currentForm?.name}
-                      className="max-w-full max-h-72 object-contain drop-shadow-2xl"
-                      style={{
-                        animation: `${
-                          slideDir === "left" ? "formSlideLeft" : "formSlideRight"
-                        } 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards`,
-                      }}
+                      animKey={animKey}
+                      slideDir={slideDir}
                       onError={(e) => {
                         if (e.target.src !== currentForm?.image) {
                           e.target.src = currentForm?.image;
